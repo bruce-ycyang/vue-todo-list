@@ -37,6 +37,12 @@
     <div v-if="joke">
       <p>{{ joke }}</p>
     </div>
+    <ul>
+      <li v-for="message in showMessages" :key="message">{{ message.text }}</li>
+    </ul>
+    <div class="showmsg" ref="showMsg">
+      <button @click="addShowMessage">add more message</button>
+    </div>
   </div>
 </template>
 
@@ -53,9 +59,30 @@ export default {
       todos: [],
       newTodo: "",
       joke: "",
+      showMessages: [
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+        { text: "some message here" },
+      ],
     };
   },
   methods: {
+    addShowMessage: function () {
+      this.showMessages.push({ text: "some other message here add" });
+    },
     addTodo: function (todo) {
       this.todos.push({ content: todo, completed: false });
     },
@@ -97,6 +124,18 @@ export default {
       });
       return output;
     },
+    scrollToEnd() {
+      var container = this.$refs.showMsg;
+      var scrallHeight = container.scrollHeight;
+      console.log(scrallHeight);
+      container.scrollTop = scrallHeight;
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.scrollToEnd());
+  },
+  updated() {
+    window.addEventListener("scroll", this.scrollToEnd());
   },
 };
 </script>
